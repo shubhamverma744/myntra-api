@@ -6,7 +6,7 @@ class Seller(Base):
     __tablename__ = 'sellers'
 
     id = Column(Integer, primary_key=True)
-    username = Column(String(50), unique=True, nullable=False)
+    username = Column(String(50), unique=True, primary_key=True, nullable=False)
     password = Column(String(100), nullable=False)
     official_name = Column(String(100), nullable=False)
     kyc = Column(String(100))
