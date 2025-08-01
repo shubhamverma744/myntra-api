@@ -1,40 +1,3 @@
-# from flask import Blueprint, request, jsonify
-# from models import Buyer
-# from utils.db_helpers import create_buyer, get_session, commit_with_rollback
-
-# buyer_bp = Blueprint("buyer", __name__)
-
-# # ✅ Signup Route
-# @buyer_bp.route("/signup", methods=["POST"])
-# def buyer_signup():
-#     data = request.json
-#     session = get_session()
-#     try:
-#         buyer = Buyer(**data)
-#         session.add(buyer)
-#         commit_with_rollback(session)
-#         session.refresh(buyer)
-#         return jsonify({"message": "Buyer created", "id": buyer.id})
-#     except Exception as e:
-#         session.rollback()
-#         return jsonify({"error": str(e)}), 400
-#     finally:
-#         session.close()
-
-# # ✅ Signin Route
-# @buyer_bp.route("/signin", methods=["POST"])
-# def buyer_signin():
-#     data = request.json
-#     session = get_session()
-#     try:
-#         buyer = session.get(Buyer, data.get("id"))
-#         if buyer and buyer.password == data.get("password"):
-#             return jsonify({"message": "Login success", "id": buyer.id})
-#         return jsonify({"error": "Invalid credentials"}), 401
-#     finally:
-#         session.close()
-
-
 from flask import Blueprint, request, jsonify, session
 from models import Buyer, Order
 from utils import hash_password, verify_password
@@ -50,27 +13,36 @@ def buyer_signup():
     db_session = get_session()
     try:
         # ✅ Required fields
-        required_fields = ["username", "password", "email", "phone"]
+        required_fields = ["id", "username", "full_name", "password", "email", "phone", "offical_name", "signature"]
         missing = [field for field in required_fields if not data.get(field)]
         if missing:
             return jsonify({"error": f"Missing fields: {', '.join(missing)}"}), 400
 
-        # ✅ Trim and sanitize input
+        # ✅ Trim and sanitize input    
+        id = str(data.get("id")).strip()
         username = str(data.get("username")).strip()
+        full_name = str(data.get("full_name")).strip()
         password = str(data.get("password")).strip()
         email = str(data.get("email")).strip()
         phone = str(data.get("phone")).strip()
+        offical_name = str(data.get("offical_name")).strip()
+        signature = str(data.get("signature")).strip()
 
         # ✅ Validate input
         if len(username) < 3 or len(password) < 6:
             return jsonify({"error": "Username must be 3+ chars and password 6+ chars"}), 400
 
+
         buyer_data = {
+                "id": id,
                 "username": username,
+                "full_name": full_name,
                 "password": hash_password(password),
                 "email": email,
                 "phone": phone,
-            "since_active": datetime.utcnow()
+                "offical_name": offical_name,
+                "signature": signature
+          #  "since_active": datetime.utcnow()
         }
 
         buyer = Buyer(**buyer_data)

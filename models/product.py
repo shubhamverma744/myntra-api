@@ -63,3 +63,4 @@ class Product(Base):
     seller = relationship("Seller", back_populates="products")
 
     reviews = relationship("Review", back_populates="product", cascade="all, delete")
+    comments = relationship("Comment", back_populates="product", cascade="all, delete-orphan")

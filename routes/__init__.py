@@ -13,5 +13,5 @@ def register_routes(app):
     app.register_blueprint(buyer_bp, url_prefix="/buyer")
     app.register_blueprint(seller_bp, url_prefix="/seller")
     app.register_blueprint(product_bp, url_prefix="/products")
-    app.register_blueprint(cart_bp, url_prefix="/cart")
-    app.register_blueprint(order_bp, url_prefix="/orders")
+    app.register_blueprint(cart_bp, url_prefix="/buyer/cart")
+    app.register_blueprint(order_bp, url_prefix="/buyer/orders")

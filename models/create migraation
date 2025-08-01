@@ -1,0 +1,17 @@
+create migraation 
+1. alembic revision --autogenerate -m "Update phone column in buyers"
+
+2. run migration
+new migration - "alembic upgrade abshs22455" (step 1 migration hash )
+update exiting migration which have already been run - "alembic downgrade dgavhsbj1234"
+upgrade to latest - alembic upgrade head
+
+3. check in pg console -> "psql -U django -d myntra" /Django@123
+ - \d buyers; (check table structor)
+ - select * from buyers (check table data)
+
+4. add in model
+5. use in APIs/routes
+
+
+
