@@ -14,7 +14,7 @@ def seller_signup():
     session = get_session()
     try:
         # ✅ Required Fields
-        required_fields = ["username", "password", "official_name", "address"]
+        required_fields = ["username", "password", "official_name"]
         missing = [field for field in required_fields if not data.get(field)]
         if missing:
             return jsonify({"error": f"Missing fields: {', '.join(missing)}"}), 400
@@ -23,7 +23,6 @@ def seller_signup():
         username = str(data.get("username")).strip()
         password = str(data.get("password")).strip()
         official_name = str(data.get("official_name")).strip()
-        address = str(data.get("address")).strip()
 
         # ✅ Basic length validations
         if len(username) < 3 or len(password) < 6:
@@ -34,7 +33,6 @@ def seller_signup():
             "username": username,
             "password": hash_password(password),
             "official_name": official_name,
-            "address": address,
             "kyc": False,
             "seller_rating": None,
             "since_active": datetime.utcnow()
