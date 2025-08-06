@@ -117,4 +117,8 @@ def seller_earnings():
         return jsonify({"error": str(e)}), 500
     finally:
         db_session.close()
+        
+        
+# def payment_details();
+
 

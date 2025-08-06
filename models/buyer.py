@@ -16,7 +16,7 @@ class Buyer(Base):
 
     reviews = relationship("Review", back_populates="buyer")
     orders = relationship("Order", back_populates="buyer")
-    addresses = relationship("SavedAddress", back_populates="buyer")
+    buyer_addresses = relationship("BuyerAddress", back_populates="buyer", cascade="all, delete-orphan")
     cart_items = relationship("CartItem", back_populates="buyer", cascade="all, delete-orphan")
     comments = relationship("Comment", back_populates="buyer", cascade="all, delete-orphan")
 

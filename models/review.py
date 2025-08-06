@@ -14,5 +14,5 @@ class Review(Base):
     buyer_id = Column(Integer, ForeignKey('buyers.id'))
     buyer = relationship("Buyer", back_populates="reviews")
 
-    comments = relationship("Comment", back_populates="review", cascade="all, delete")
     attachments = relationship("Attachment", back_populates="review", cascade="all, delete")
+    comments = relationship("Comment", back_populates="review", cascade="all, delete")  # ✅ This works now

@@ -1,9 +1,10 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
 from db.config import Base
+from sqlalchemy.orm import relationship
 
-class SavedAddress(Base):
-    __tablename__ = 'saved_addresses'
+
+class BuyerAddress(Base):
+    __tablename__ = 'buyer_addresses'
 
     id = Column(Integer, primary_key=True)
     buyer_id = Column(Integer, ForeignKey('buyers.id'), nullable=False)
@@ -12,5 +13,5 @@ class SavedAddress(Base):
     state = Column(String(50))
     zip_code = Column(String(20))
     country = Column(String(50))
-
-    buyer = relationship("Buyer", back_populates="addresses")
+    
+    buyer = relationship("Buyer", back_populates="buyer_addresses")

@@ -4,7 +4,7 @@ from db.config import Base
 from datetime import datetime
 
 class PaymentDetail(Base):
-    __tablename__ = 'payment_details'
+    __tablename__ = 'payment'
 
     id = Column(Integer, primary_key=True)
     order_id = Column(Integer, ForeignKey('orders.id'), nullable=False)

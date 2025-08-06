@@ -1,7 +1,7 @@
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
 from db.config import engine
-from models import Buyer, Seller, Product, Order, OrderItem, SavedAddress
+from models import Buyer, Seller, Product, Order, OrderItem
 
 # ========== DB SESSION HELPERS ==========
 
@@ -109,27 +109,6 @@ def get_order_by_id(order_id):
     session = get_session()
     try:
         return session.get(Order, order_id)
-    finally:
-        session.close()
-
-
-# ========== ADDRESS HELPERS ==========
-
-def add_address(buyer_id, address_data):
-    session = get_session()
-    try:
-        address = SavedAddress(buyer_id=buyer_id, **address_data)
-        session.add(address)
-        commit_with_rollback(session)
-        session.refresh(address)
-        return address
-    finally:
-        session.close()
-
-def get_addresses_for_buyer(buyer_id):
-    session = get_session()
-    try:
-        return session.query(SavedAddress).filter_by(buyer_id=buyer_id).all()
     finally:
         session.close()
 

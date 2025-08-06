@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, session
 from utils.db_helpers import get_session
 from models import Order, Product
-from models.cart import CartItem  # if you have one
+from models.cart_items import CartItem  # if you have one
 from datetime import datetime
 
 order_bp = Blueprint("order", __name__)
@@ -64,6 +64,7 @@ def place_order():
         # You can use OrderItem or CartItem table if needed
         for product_id in product_ids:
             cart_item = CartItem(
+                id=id,
                 order_id=new_order.id,
                 product_id=product_id,
                 quantity=1  # default

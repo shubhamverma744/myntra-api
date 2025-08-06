@@ -9,12 +9,14 @@ class Comment(Base):
     id = Column(Integer, primary_key=True)
     buyer_id = Column(Integer, ForeignKey("buyers.id"), nullable=False)
     product_id = Column(Integer, ForeignKey("products.id"), nullable=False)
-    review_id = Column(Integer, ForeignKey("reviews.id"), nullable=False)  # ✅ Add this
     content = Column(String, nullable=False)
-    rating = Column(Integer, nullable=True)
+    rating = Column(Integer, nullable=True)  # Optional: 1-5 stars
     created_at = Column(DateTime, default=datetime.utcnow)
+    
+    review_id = Column(Integer, ForeignKey("reviews.id"))  # ✅ Add this
+    review = relationship("Review", back_populates="comments")  # ✅ Keep this
+
 
     # Relationships
     buyer = relationship("Buyer", back_populates="comments")
     product = relationship("Product", back_populates="comments")
-    review = relationship("Review", back_populates="comments")  # ✅ Add this
