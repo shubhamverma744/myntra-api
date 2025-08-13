@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models.comment import Comment
+from models import Comment
 from utils.db_helpers import get_session
 from datetime import datetime
 

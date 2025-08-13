@@ -2,7 +2,7 @@ from app import create_app
 from db.config import SessionLocal
 from models.buyer import Buyer
 from models.product import Product
-from models.orders import Order
+from backend.models.order import Order
 from models.review import Review
 # from models.comment import Comment
 # from models.review import Review

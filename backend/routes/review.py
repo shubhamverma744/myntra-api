@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models.review import Review
+from models import Review
 from utils.db_helpers import get_session
 
 review_bp = Blueprint("review", __name__)

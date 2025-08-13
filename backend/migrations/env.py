@@ -4,6 +4,10 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
+from db.config import Base
+from models import buyer, seller, product, category  # import all models
+target_metadata = Base.metadata
+
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

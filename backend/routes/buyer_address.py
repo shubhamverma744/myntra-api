@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify, session
-from models.buyer_address import BuyerAddress
-from models.seller_address import SellerAddress
+from models import BuyerAddress, SellerAddress
 from utils.db_helpers import get_session
 
 address_bp = Blueprint("buyer_address", __name__)

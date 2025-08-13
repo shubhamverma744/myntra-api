@@ -1,17 +1,32 @@
-from .buyer import Buyer
-from .review import Review
-from .product import Product
-from .seller import Seller
-from .orders import Order
-from .order_item import OrderItem
-from .buyer_address import BuyerAddress
-from .seller_address import SellerAddress
-from .payment import PaymentDetail
-from .comment import Comment
-from .cart_items import CartItem
-from .attachment import Attachment
-from .cart_items import CartItem
+from .models_all import (
+    Buyer, 
+    Review, 
+    Product, 
+    Seller, 
+    Order, 
+    BuyerAddress, 
+    SellerAddress, 
+    PaymentDetail, 
+    Comment, 
+    CartItem,
+    Attachment, 
+    OrderItem
+)
 
 from db.config import Base
 
-__all__ = ["Buyer", "Review"]
+__all__ = [
+    "Buyer",
+    "Review", 
+    "Product",
+    "Seller",
+    "Order",
+    "BuyerAddress",
+    "SellerAddress", 
+    "PaymentDetail",
+    "Comment",
+    "CartItem",
+    "Attachment",
+    "OrderItem",
+    "Base"  # Add Base if you want to export it
+]

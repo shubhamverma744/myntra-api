@@ -7,14 +7,13 @@ from datetime import datetime
 
 seller_bp = Blueprint("seller", __name__)
 
-# ✅ Seller Signup
 @seller_bp.route("/signup", methods=["POST"])
 def seller_signup():
     data = request.json
     session = get_session()
     try:
-        # ✅ Required Fields
-        required_fields = ["username", "password", "official_name"]
+        # ✅ Required Fields based on Seller model
+        required_fields = ["username", "password", "official_name", "email"]
         missing = [field for field in required_fields if not data.get(field)]
         if missing:
             return jsonify({"error": f"Missing fields: {', '.join(missing)}"}), 400
@@ -23,27 +22,49 @@ def seller_signup():
         username = str(data.get("username")).strip()
         password = str(data.get("password")).strip()
         official_name = str(data.get("official_name")).strip()
+        email = str(data.get("email")).strip().lower()
+        phone = str(data.get("phone")).strip() if data.get("phone") else None
 
         # ✅ Basic length validations
-        if len(username) < 3 or len(password) < 6:
-            return jsonify({"error": "Username must be 3+ chars and password 6+ chars"}), 400
+        if len(username) < 3:
+            return jsonify({"error": "Username must be at least 3 characters"}), 400
+        if len(password) < 6:
+            return jsonify({"error": "Password must be at least 6 characters"}), 400
 
-        # ✅ Construct seller data
+        # ✅ Email format validation (simple check)
+        if "@" not in email or "." not in email:
+            return jsonify({"error": "Invalid email format"}), 400
+
+        # ✅ Uniqueness checks
+        if session.query(Seller).filter_by(username=username).first():
+            return jsonify({"error": "Username already taken"}), 400
+        if session.query(Seller).filter_by(email=email).first():
+            return jsonify({"error": "Email already registered"}), 400
+        if phone and session.query(Seller).filter_by(phone=phone).first():
+            return jsonify({"error": "Phone number already registered"}), 400
+
+        # ✅ Construct seller data (KYC is string — default None)
         seller_data = {
             "username": username,
             "password": hash_password(password),
             "official_name": official_name,
-            "kyc": False,
+            "email": email,
+            "phone": phone,
+            "kyc": None,
             "seller_rating": None,
-            "since_active": datetime.utcnow()
+            "since_active": datetime.utcnow().date(),
+            "is_active": True,
+            "is_verified": False
         }
 
+        # ✅ Create and save seller
         seller = Seller(**seller_data)
         session.add(seller)
         commit_with_rollback(session)
         session.refresh(seller)
-        return jsonify({"message": "Seller created", "id": seller.id})
-    
+
+        return jsonify({"message": "Seller created successfully", "id": seller.id}), 201
+
     except Exception as e:
         session.rollback()
         return jsonify({"error": str(e)}), 400

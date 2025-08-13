@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models.payment import PaymentDetail
+from models import PaymentDetail
 # from db.config import get_session
 from utils.db_helpers import get_session
 from datetime import datetime

@@ -1,7 +1,6 @@
 from flask import Blueprint, request, jsonify, session
 from utils.db_helpers import get_session
-from models import Order, Product
-from models.cart_items import CartItem  # if you have one
+from models import Order, Product, CartItem
 from datetime import datetime
 
 order_bp = Blueprint("order", __name__)
