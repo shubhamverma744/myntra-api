@@ -1,11 +1,3 @@
-# from flask import Blueprint, jsonify
-
-# cart_bp = Blueprint("cart", __name__)
-
-# @cart_bp.route("/", methods=["GET"])
-# def view_cart():
-#     return jsonify({"message": "Cart details"})
-
 from flask import Blueprint, request, jsonify
 from models import CartItem, Product
 from utils.db_helpers import get_session, commit_with_rollback

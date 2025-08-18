@@ -6,12 +6,16 @@ from routes import register_routes  # New route registration method
 from routes.payment import payment_bp
 from routes.buyer_address import address_bp 
 from routes.order import order_bp
+from routes import router as api_router
+
 
 
 def create_app():
     app = Flask(__name__)
     app.config['ENV'] = os.getenv("FLASK_ENV", "development")
     app.secret_key = os.getenv("APP_SECRET_KEY")
+    app.include_router(api_router)
+
   #  app.register_blueprint(order_bp)
 
 
@@ -26,5 +30,7 @@ def create_app():
 if __name__ == "__main__":  
     app = create_app()
     app.run(debug=True)
+
+
 
 

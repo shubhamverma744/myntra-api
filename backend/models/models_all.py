@@ -431,3 +431,19 @@ class CartItem(BaseModel):
         if quantity <= 0:
             raise ValueError("Cart item quantity must be greater than 0")
         return quantity
+    
+#----------------------------Category------------------------------------#
+
+import uuid
+from sqlalchemy import Column, String, Float
+from db.config import Base
+
+class Product(Base):
+    __tablename__ = "products"
+
+    id = Column(String(32), primary_key=True, default=lambda: uuid.uuid4().hex)
+    name = Column(String(100), nullable=False)
+    price = Column(Float, nullable=False)
+
+    # ✅ New category column
+    category = Column(String(50), nullable=True)
