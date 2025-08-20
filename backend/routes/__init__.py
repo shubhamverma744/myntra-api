@@ -7,8 +7,7 @@ from routes.buyer import buyer_bp
 from routes.seller import seller_bp
 from routes.root import root_bp
 from routes.buyer_address import address_bp
-from routes import product
-from fastapi import APIRouter
+from routes.category import category_bp
 
 
 def register_routes(app):
@@ -20,8 +19,4 @@ def register_routes(app):
     app.register_blueprint(cart_bp, url_prefix="/buyer/cart")
     app.register_blueprint(order_bp, url_prefix="/orders")
     app.register_blueprint(address_bp, url_prefix="/address")
-
-
-
-# router = APIRouter()
-# router.include_router(product.router)
+    app.register_blueprint(category_bp, url_prefix="/api")

@@ -10,7 +10,7 @@ from .models_all import (
     Comment, 
     CartItem,
     Attachment, 
-    OrderItem
+    OrderItem, Category, SubCategory
 )
 
 from db.config import Base
@@ -28,5 +28,7 @@ __all__ = [
     "CartItem",
     "Attachment",
     "OrderItem",
-    "Base"  # Add Base if you want to export it
+    "Base",
+    "Category",
+    "SubCategory"
 ]
