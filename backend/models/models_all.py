@@ -205,9 +205,15 @@ class Product(BaseModel):
     # Status
     is_active = Column(Boolean, default=True, nullable=False)
     is_featured = Column(Boolean, default=False)
+    category_id = Column(String(32), ForeignKey("categories.id", ondelete="CASCADE"))
+    subcategory_id = Column(String(32), ForeignKey("subcategory.id", ondelete="CASCADE"))
+
 
     # Relationships
     seller = relationship("Seller", back_populates="products")
+    category = relationship("Category", back_populates="products")
+    subcategory = relationship("SubCategory", back_populates="products")
+
     reviews = relationship(
         "Review", back_populates="product", cascade="all, delete-orphan", passive_deletes=True
     )
@@ -445,11 +451,17 @@ class Category(BaseModel):
         cascade="all, delete-orphan",
         passive_deletes=True
     )
+    products = relationship(
+        "Product",
+        back_populates="category",
+        cascade="all, delete-orphan",
+        passive_deletes=True
+    )
 
 
 # ---------------------------- SubCategory -------------------------
 class SubCategory(BaseModel):
-    __tablename__ = "subcategories"
+    __tablename__ = "subcategory"
 
     name = Column(String(50), nullable=False)
 
@@ -458,6 +470,11 @@ class SubCategory(BaseModel):
         ForeignKey("categories.id", ondelete="CASCADE"),
         nullable=False
     )
-
+    products = relationship(
+        "Product",
+        back_populates="subcategory",
+        cascade="all, delete-orphan",
+        passive_deletes=True
+    )
     category = relationship("Category", back_populates="subcategories")
 

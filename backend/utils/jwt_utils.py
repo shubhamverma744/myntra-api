@@ -15,3 +15,12 @@ def decode_token(token: str) -> dict:
         return {"error": "Token expired"}
     except jwt.InvalidTokenError:
         return {"error": "Invalid token"}
+
+
+# 1. data.copy() → user data (जैसे {"user_id": 123}) payload में डाला जाएगा।
+
+#  "exp" field → token expire होने का time (UTC + given seconds)।
+# 2. Default = 3600 sec = 1 hour.
+
+#  jwt.encode(...) → HS256 algorithm से signed token string generate करता है।
+

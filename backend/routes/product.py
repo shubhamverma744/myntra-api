@@ -20,7 +20,9 @@ def list_all_products():
                 "mrp": p.mrp,
                 "selling_price": p.selling_price,
                 "stock_quantity": p.stock_quantity,
-                "main_image_url": p.main_image_url
+                "main_image_url": p.main_image_url,
+                "seller_id": p.seller_id,
+                "category_id": p.category_id
                 # Add more fields as needed
             })
         return jsonify({"products": product_list})
@@ -30,7 +32,7 @@ def list_all_products():
         db.close()
 
 # ✅ Get a specific product
-@product_bp.get("/<int:product_id>")
+@product_bp.get("/<string:product_id>")
 def get_product(product_id):
     db = get_session()
     try:
@@ -55,7 +57,9 @@ def get_product(product_id):
             "video_url": product.video_url,
             "returnable": product.returnable,
             "return_days": product.return_days,
-            "exchange_available": product.exchange_available
+            "exchange_available": product.exchange_available,
+            "seller_id": product.seller_id,
+            "category_id": product.category_id
             # Add any other fields you want
         }
         return jsonify({"product": product_data})

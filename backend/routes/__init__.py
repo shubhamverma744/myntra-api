@@ -8,6 +8,10 @@ from routes.seller import seller_bp
 from routes.root import root_bp
 from routes.buyer_address import address_bp
 from routes.category import category_bp
+from routes.sub_categories import subcategory_bp
+from routes.review import review_bp
+
+
 
 
 def register_routes(app):
@@ -19,4 +23,8 @@ def register_routes(app):
     app.register_blueprint(cart_bp, url_prefix="/buyer/cart")
     app.register_blueprint(order_bp, url_prefix="/orders")
     app.register_blueprint(address_bp, url_prefix="/address")
-    app.register_blueprint(category_bp, url_prefix="/api")
+    app.register_blueprint(category_bp, url_prefix="/categories")
+    app.register_blueprint(subcategory_bp, url_prefix="/sub_categories")
+    app.register_blueprint(review_bp, url_prefix="/reviews")
+
+

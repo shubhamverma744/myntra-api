@@ -13,5 +13,7 @@ upgrade to latest - alembic upgrade head
 4. add in model
 5. use in APIs/routes
 
+alembic revision --autogenerate -m "added subcategory in product"
 
+        pdb.set_trace()   # ✅ अब loop खत्म होने के बाद हमेशा रुकेगा
 
