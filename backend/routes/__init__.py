@@ -24,7 +24,7 @@ def register_routes(app):
     app.register_blueprint(order_bp, url_prefix="/orders")
     app.register_blueprint(address_bp, url_prefix="/address")
     app.register_blueprint(category_bp, url_prefix="/categories")
-    app.register_blueprint(subcategory_bp, url_prefix="/sub_categories")
+    app.register_blueprint(subcategory_bp, url_prefix="/subcategories")
     app.register_blueprint(review_bp, url_prefix="/reviews")
 
 
